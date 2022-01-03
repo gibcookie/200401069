@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 public class YapbozTest {
 	public static void main(String[] args) {
@@ -8,21 +9,9 @@ public class YapbozTest {
 		int n = boyutkap.nextInt();
 		boyutkap.close();
 		YapbozParcasi[][] yapbozum = YapbozOlusturucu(m, n);
-		for (int i = 0; i < m; i++) {
-			for (int j = 0; j < n; j++) {
-				System.out.print("0, " + yapbozum[i][j].GetustKisim() + ", 0   ");
-			}
-			System.out.println("");
-			for (int j = 0; j < n; j++) {
-				System.out.print(yapbozum[i][j].GetsolKisim() + ", 0, " + yapbozum[i][j].GetsagKisim() + "   ");
-			}
-			System.out.println("");
-			for (int j = 0; j < n; j++) {
-				System.out.print("0, " + yapbozum[i][j].GetaltKisim() + ", 0   ");
-			}
-			System.out.println("\n");
-		}
-		
+		YapbozYazdirici(yapbozum);
+		YapbozBozucu(yapbozum);
+		YapbozYazdirici(yapbozum);
 	}
 	
 	public static YapbozParcasi[][] YapbozOlusturucu(int mm, int nn) {
@@ -47,5 +36,36 @@ public class YapbozTest {
 		//Sag ve alt kenar puruzleri temizlendi.
 		
 		return yapboz1;
+	}
+	
+	public static void YapbozBozucu(YapbozParcasi[][] Yapboz) {
+		Random random = new Random();
+		for (int sayac = 0; sayac < Yapboz.length * Yapboz[0].length; sayac++) {
+			int sira1 = random.nextInt(Yapboz.length), sira2 = random.nextInt(Yapboz.length);
+			int sutun1 = random.nextInt(Yapboz[0].length), sutun2 = random.nextInt(Yapboz[0].length);
+			YapbozParcasi gecici = Yapboz[sira1][sutun1];
+			Yapboz[sira1][sutun1] = Yapboz[sira2][sutun2];
+			Yapboz[sira2][sutun2] = gecici;
+		}
+	}
+	
+	public static void YapbozYazdirici(YapbozParcasi[][] Yapboz) {
+		int m = Yapboz.length;
+		int n = Yapboz[0].length;
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				System.out.print("0, " + Yapboz[i][j].GetustKisim() + ", 0   ");
+			}
+			System.out.println("");
+			for (int j = 0; j < n; j++) {
+				System.out.print(Yapboz[i][j].GetsolKisim() + ", 0, " + Yapboz[i][j].GetsagKisim() + "   ");
+			}
+			System.out.println("");
+			for (int j = 0; j < n; j++) {
+				System.out.print("0, " + Yapboz[i][j].GetaltKisim() + ", 0   ");
+			}
+			System.out.println("\n");
+		
+		}
 	}
 }
